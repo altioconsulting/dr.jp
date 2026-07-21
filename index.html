@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#3A7BD5"/>
+    <title>Tarjeta Digital - Dr. Juan Pérez</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        @keyframes rotate { to { transform: rotate(360deg); } }
+        .animated-border-glow {
+            position: relative;
+            padding: 3px;
+            overflow: hidden;
+        }
+        .animated-border-glow::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            border-radius: inherit;
+            background: conic-gradient(from 180deg, #3A7BD5, #8EC5FF, #3A7BD5);
+            animation: rotate 3s linear infinite;
+        }
+        .animated-border-glow > * { position: relative; z-index: 1; }
+        .fade-in-up { opacity: 0; animation: fadeInUp 0.6s ease-out forwards; }
+        @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } from { transform: translateY(20px); } }
+        .modal-content { transition: all 300ms cubic-bezier(0.34, 1.56, 0.64, 1); }
+    </style>
+</head>
+<body class="bg-[#F6FBFF] flex items-center justify-center min-h-screen sm:p-4">
+
+    <div class="w-full max-w-sm bg-white sm:rounded-2xl sm:shadow-xl p-6 md:p-8">
+        <header class="flex flex-col items-center text-center">
+            <div class="relative fade-in-up w-32 h-32" style="animation-delay: 100ms;">
+                <div class="w-full h-full rounded-full animated-border-glow">
+                    <img src="https://static.vecteezy.com/system/resources/thumbnails/026/375/249/small/ai-generative-portrait-of-confident-male-doctor-in-white-coat-and-stethoscope-standing-with-arms-crossed-and-looking-at-camera-photo.jpg" 
+                         alt="Dr. Juan Pérez" class="w-full h-full rounded-full object-cover">
+                </div>
+            </div>
+            <h1 class="text-3xl font-bold text-[#1D2D50] mt-4 fade-in-up" style="animation-delay: 200ms;">Dr. Juan Pérez</h1>
+            <p class="text-[#3A7BD5] font-medium text-lg fade-in-up" style="animation-delay: 300ms;">Odontólogo General & Estética Dental</p>
+        </header>
+
+        <main class="mt-6 space-y-3 fade-in-up" style="animation-delay: 400ms;">
+            <a href="tel:+523326784809" class="flex items-center p-3 bg-slate-50 rounded-lg hover:bg-slate-100 transition-colors">
+                <i data-lucide="phone" class="w-5 h-5 text-[#3A7BD5]"></i><span class="ml-4 text-[#1D2D50] font-medium">33 2678 4809</span>
+            </a>
+            <a href="https://wa.me/523326784809?text=¡Hola!%20Quisiera%20agendar%20una%20cita,%20por%20favor." target="_blank" class="flex items-center p-3 bg-green-50 rounded-lg hover:bg-green-100 transition-colors">
+                <img src="https://static.vecteezy.com/system/resources/previews/016/716/468/non_2x/whatsapp-icon-free-png.png" alt="WhatsApp" class="w-5 h-5">
+                <span class="ml-4 text-green-800 font-medium">WhatsApp</span>
+            </a>
+            <a href="mailto:j.perez@clinicadental.com" class="flex items-center p-3 bg-slate-50 rounded-lg hover:bg-slate-100 transition-colors">
+                <i data-lucide="mail" class="w-5 h-5 text-[#3A7BD5]"></i><span class="ml-4 text-[#1D2D50] font-medium">j.perez@clinicadental.com</span>
+            </a>
+            <a href="https://www.google.com/maps/place/Av.+Jos%C3%A9+Mar%C3%ADa+Morelos+2006,+Ladr%C3%B3n+de+Guevara,+Ladron+De+Guevara,+44600+Guadalajara,+Jal./@20.6758692,-103.3789711,17z/data=!3m1!4b1!4m6!3m5!1s0x8428ae121ca852c1:0x64f06ca01676ebb1!8m2!3d20.6758642!4d-103.3763962!16s%2Fg%2F11csfxmnh7?entry=ttu&g_ep=EgoyMDI2MDcxNS4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="flex items-center p-3 bg-slate-50 rounded-lg hover:bg-slate-100 transition-colors">
+                <i data-lucide="map-pin" class="w-5 h-5 text-[#3A7BD5]"></i><span class="ml-4 text-[#1D2D50] font-medium">Av. José María Morelos 2006</span>
+            </a>
+        </main>
+
+        <footer class="mt-8 flex flex-col gap-4 fade-in-up" style="animation-delay: 500ms;">
+            <a href="https://calendar.app.google/JJBFXxnaomrNvUPWA" target="_blank" class="flex items-center justify-center w-full bg-white text-[#3A7BD5] font-bold py-3 px-4 rounded-lg border-2 border-[#3A7BD5] hover:bg-[#F6FBFF]">
+                <i data-lucide="calendar" class="w-5 h-5 mr-3"></i>Agendar Cita Ahora
+            </a>
+            <button id="save-contact-btn" class="flex items-center justify-center w-full bg-[#3A7BD5] text-white font-bold py-3 px-4 rounded-lg hover:bg-[#1D2D50]">
+                <i data-lucide="user-plus" class="w-5 h-5 mr-3"></i>Guardar Contacto
+            </button>
+            <button id="show-qr-btn" class="flex items-center justify-center w-full bg-[#1D2D50] text-white font-bold py-3 px-4 rounded-lg hover:bg-[#3A7BD5]">
+                <i data-lucide="share-2" class="w-5 h-5 mr-3"></i>Compartir / QR
+            </button>
+            <button id="show-instructions-btn" class="text-center w-full text-slate-500 font-medium text-sm py-2 hover:text-[#3A7BD5]">
+                ¿Cómo instalar en mi móvil?
+            </button>
+        </footer>
+    </div>
+
+    <div id="qr-modal" class="hidden fixed inset-0 bg-black/60 flex items-center justify-center p-4 z-50">
+        <div class="modal-content bg-white rounded-2xl shadow-xl max-w-xs w-full relative text-center scale-95 opacity-0 overflow-hidden">
+            <div class="bg-[#3A7BD5] p-5"><h2 class="text-xl font-bold text-white">Compartir Tarjeta</h2><button id="close-qr-modal-btn" class="absolute top-3 right-3 text-white/70 hover:text-white"><i data-lucide="x" class="w-6 h-6"></i></button></div>
+            <div class="p-6"><div id="qrcode-container" class="flex justify-center p-2 bg-white"><div id="qrcode"></div></div><button id="native-share-btn" class="mt-6 w-full bg-[#3A7BD5] text-white font-bold py-3 rounded-lg">Compartir Ahora</button></div>
+        </div>
+    </div>
+
+    <div id="install-instructions-modal" class="hidden fixed inset-0 bg-black/60 flex items-center justify-center p-4 z-50">
+        <div class="modal-content bg-white rounded-2xl shadow-xl max-w-md w-full relative scale-95 opacity-0 p-6">
+            <h2 class="text-xl font-bold text-[#1D2D50] mb-4">Instalar Acceso Directo</h2>
+            <ol class="space-y-3 text-sm text-slate-600"><li><strong>iPhone:</strong> Toca "Compartir" y selecciona "Añadir a pantalla de inicio".</li><li><strong>Android:</strong> Toca los tres puntos y selecciona "Instalar aplicación" o "Añadir a pantalla de inicio".</li></ol>
+            <button id="close-instructions-modal-btn" class="mt-6 w-full py-2 bg-slate-200 rounded-lg">Cerrar</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+            document.getElementById('save-contact-btn').addEventListener('click', () => {
+                const vCardData = `BEGIN:VCARD\nVERSION:3.0\nFN:Dr. Juan Pérez\nTEL;TYPE=WORK,VOICE:3326784809\nEMAIL:j.perez@clinicadental.com\nEND:VCARD`;
+                const blob = new Blob([vCardData], { type: 'text/vcard' });
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = 'Dr_Juan_Perez.vcf';
+                link.click();
+            });
+            const setupModal = (modalId, openBtnId, closeBtnId) => {
+                const modal = document.getElementById(modalId);
+                const openBtn = document.getElementById(openBtnId);
+                const closeBtn = document.querySelector(closeBtnId);
+                const content = modal.querySelector('.modal-content');
+                openBtn.addEventListener('click', () => { modal.classList.remove('hidden'); setTimeout(() => content.classList.remove('scale-95', 'opacity-0'), 10); });
+                closeBtn.addEventListener('click', () => { content.classList.add('scale-95', 'opacity-0'); setTimeout(() => modal.classList.add('hidden'), 300); });
+            };
+            setupModal('qr-modal', 'show-qr-btn', '#close-qr-modal-btn');
+            setupModal('install-instructions-modal', 'show-instructions-btn', '#close-instructions-modal-btn');
+            new QRCode(document.getElementById("qrcode"), { text: window.location.href, width: 192, height: 192 });
+        });
+    </script>
+</body>
+</html>
